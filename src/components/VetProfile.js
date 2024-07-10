@@ -1,3 +1,4 @@
+// src/components/VetProfile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -23,3 +24,4 @@ function VetProfile() {
 }
 
 export default VetProfile;
+

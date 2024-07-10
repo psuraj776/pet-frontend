@@ -1,33 +1,41 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { registerUser } from '../api';
 
-function Register() {
+const Register = () => {
+  const { role } = useParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('pet');
-  const history = useHistory();
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Call backend API for registration
-    // On successful registration, redirect to login
-    history.push('/login');
+    try {
+      const response = await registerUser(email, password, role);
+      if (response.success) {
+        setSuccess('Registration successful. You can now log in.');
+      } else {
+        setError(response.message);
+      }
+    } catch (error) {
+      setError('Registration failed. Please try again.');
+    }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="register">
+      <h2>Register as {role}</h2>
       <form onSubmit={handleRegister}>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-          <option value="pet">Pet</option>
-          <option value="vet">Vet</option>
-        </select>
         <button type="submit">Register</button>
       </form>
+      {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
     </div>
   );
 }
 
 export default Register;
+

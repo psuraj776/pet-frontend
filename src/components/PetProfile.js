@@ -1,3 +1,4 @@
+// src/components/PetProfile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -22,3 +23,4 @@ function PetProfile() {
 }
 
 export default PetProfile;
+

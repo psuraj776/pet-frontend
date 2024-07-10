@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Home() {
+const Home = () => {
   return (
-    <div>
+    <div className="home">
       <h1>Welcome to Pet Vet Store</h1>
-      <Link to="/login">Login</Link>
-      <br />
-      <Link to="/register">Register</Link>
+      <Link to="/select-role">
+	  <button>Continue</button>
+      </Link>
     </div>
   );
 }
